@@ -132,21 +132,35 @@ async function getWinnersByYear(year: number): Promise<Movie[]> {
   }
 }
 
-async function getMovies(): Promise<MovieResponse> {
-    const url = `${baseUrl}/?page=0&size=99&winner=true&year=2018`;
-  
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data: MovieResponse = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Fetching error:", error);
-      throw error;
+export interface moviesParams {
+  page: number;
+  size: number;
+  winner: boolean | null;
+  year: string | null;
+}
+
+async function getMovies(params: moviesParams): Promise<MovieResponse> {
+  // const url = `${baseUrl}/?page=0&size=99&winner=true&year=2018`;
+  let queryString = "?";
+  for (const [key, value] of Object.entries(params)) {
+    if (value !== null && value !== undefined) {
+      queryString += `${encodeURIComponent(key)}=${encodeURIComponent(value)}&`
     }
   }
+  const url = `${baseUrl}/${queryString}`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data: MovieResponse = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Fetching error:", error);
+    throw error;
+  }
+}
   
 
 export default {

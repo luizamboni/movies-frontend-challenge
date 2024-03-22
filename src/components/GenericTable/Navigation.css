@@ -1,0 +1,26 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  background-color: #f9f9f9;
+}
+
+.pagination .page-navegation {
+  cursor: pointer;
+  text-align: center;
+  padding: 5px;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  line-height: 140%;
+}
+
+
+.pagination .page-navegation.disabled {
+  color: #e0e0e0;
+} 
+
+.pagination .page-navegation.active {
+  background-color:#3333FF;
+  color: #e0e0e0;
+}
+
