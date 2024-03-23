@@ -28,7 +28,6 @@ main {
   padding: 20px;
   width: 200px;
   height: 100vh;
-  /* position: sticky; */
 }
 
 .side-menu li {
@@ -44,4 +43,8 @@ main {
   text-decoration: none;
 }
 
+.side-menu li a.active {
+  color:#bbb;
+  text-decoration: #3333FF;
+}
 
