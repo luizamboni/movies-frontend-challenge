@@ -50,40 +50,36 @@ function List() {
 
   return (
     <div className="list-container">
-      {movies ? (
-        <Card>
-          <h2>List movies</h2>
-          <GenericTable
-            centerHeaders={true}
-            columns={{
-              id: "ID",
-              year: "Year",
-              title: "Title",
-              winner: "Winner?",
-            }}
-            filters={{
-              year: {
-                placeholder: "Filter by year",
-                type: "text",
-                value: moviesParams.year ? String(moviesParams.year) : "",
-                onFilter: handleYearFilter,
-              },
-              winner: {
-                placeholder: "yes/no",
-                type: "select",
-                value: (moviesParams && moviesParams ? "Yes" : "No") || "",
-                options: ["Yes", "No"],
-                onFilter: handleWinnerFilter,
-              }
-            }}
-            data={movies.content.map(movie => ({...movie, winner: movie.winner ? "Yes" : "No" }))}
-            pagination={{current: movies.number + 1, pages: movies.totalPages }}
-            onNavigate={handlePagination}
-          />
-        </Card>
-      ) : (
-        <p>Loading movies...</p>
-      )}
+      <Card isLoading={!movies} title="List movies">
+        {movies && <GenericTable
+          centerHeaders={true}
+          columns={{
+            id: "ID",
+            year: "Year",
+            title: "Title",
+            winner: "Winner?",
+          }}
+          filters={{
+            year: {
+              placeholder: "Filter by year",
+              type: "text",
+              value: moviesParams.year ? String(moviesParams?.year) : "",
+              onFilter: handleYearFilter,
+            },
+            winner: {
+              placeholder: "yes/no",
+              type: "select",
+              value: (moviesParams && moviesParams ? "Yes" : "No"),
+              options: ["Yes", "No"],
+              onFilter: handleWinnerFilter,
+            }
+          }}
+          data={movies?.content.map(movie => ({...movie, winner: movie.winner ? "Yes" : "No" })) || []}
+          pagination={{current: movies.number + 1, pages: movies.totalPages }}
+          onNavigate={handlePagination}
+        />
+        }
+      </Card>
     </div>
   );
 }

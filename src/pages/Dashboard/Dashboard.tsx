@@ -59,52 +59,46 @@ function Dashboard() {
   }, [year]);
 
   function handleYearChange(e: any) {
+    setWinnersByYear(null);
     setYear(e.target.value);
-    console.log(e.target.value);
   }
 
   return (
     <div className={style.dashboardContainer}>
       <div className={style.column} >
-        {yearWithMultipleWinners && (
-          <Card>
-            <GenericTable 
-              title="List Years With Multiple Winners" 
-              columns={{year: "Year", winnerCount: "Win Count"}} 
-              data={yearWithMultipleWinners.years} 
-            />
-          </Card>
-        )}
+        <Card isLoading={!yearWithMultipleWinners} title="List Years With Multiple Winners">
+          {yearWithMultipleWinners &&<GenericTable 
+            columns={{year: "Year", winnerCount: "Win Count"}} 
+            data={yearWithMultipleWinners.years} 
+          />}
+        </Card>
         {producerWinIntervals && (
-          <Card>
-            <h2>Producers With Longest and Shortest Intervals between wins</h2>
-
-            <h3>Maximum</h3>
-            <GenericTable 
-              columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
-              data={producerWinIntervals.max} 
-            />
-            <h3>Minimum</h3>
-            <GenericTable 
-              columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
-              data={producerWinIntervals.min} 
-            />
+          <Card isLoading={!producerWinIntervals} title="Producers With Longest and Shortest Intervals between wins">
+            {producerWinIntervals &&
+              <>
+                <h3>Maximum</h3>
+                <GenericTable 
+                  columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
+                  data={producerWinIntervals.max} 
+                />
+                <h3>Minimum</h3>
+                <GenericTable 
+                  columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
+                  data={producerWinIntervals.min} 
+                />
+              </>
+            }
           </Card>
         )}
       </div>
       <div className={style.column} >
-        {studiosWithWinCount && (
-          <Card>
-            <GenericTable 
-              title="Top 3 studios with winners" 
-              columns={{name: "Name", winCount: "Win Count"}} 
-              data={studiosWithWinCount.studios.slice(0, 3)} 
-            />
-          </Card>
-        )}
-        {winnersByYear && 
-          <WinnerByYearCard data={winnersByYear} value={year} onChange={handleYearChange} />
-        }
+        <Card isLoading={!studiosWithWinCount} title="Top 3 studios with winners" >
+          {studiosWithWinCount && <GenericTable 
+            columns={{name: "Name", winCount: "Win Count"}} 
+            data={studiosWithWinCount.studios.slice(0, 3)} 
+          />}
+        </Card>
+        <WinnerByYearCard data={winnersByYear} isLoading={!winnersByYear} value={year} onChange={handleYearChange} />
       </div>
     </div>
   );

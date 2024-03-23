@@ -29,7 +29,7 @@ type GenericTableProps = {
   title?: string | null;
   centerHeaders?: boolean;
   columns: ColumnsType;
-  data: any[];
+  data: any[] | null;
   pagination?: Pagination;
   filters?: Filters;
   onNavigate?: (page: number) => void;
@@ -66,7 +66,7 @@ const GenericTable: React.FC<GenericTableProps> = ({ title, columns, data, pagin
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
+          {data?.map((item, index) => (
             <tr key={index} className={classNames({[style.tableTrNthChildOdd]: index % 2 !== 0})}>
               {Object.keys(columns).map((columnKey) => (
                 <td key={columnKey} className={style.tableTd} >{item[columnKey]}</td>

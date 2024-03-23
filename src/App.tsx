@@ -11,7 +11,6 @@ function App() {
         <p>Frontend React Test</p>
       </div>
       <div className="App">
-
         <nav className="side-menu">
           <ul>
             <li><NavLink className={({ isActive }) => (isActive ? "active" : "inactive")} to="/">Dashboard</NavLink></li>
