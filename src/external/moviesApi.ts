@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 const baseUrl = "https://tools.texoit.com/backend-java/api/movies";
 
 interface YearWinner {
@@ -144,7 +145,7 @@ async function getMovies(params: moviesParams): Promise<MovieResponse> {
   let queryString = "?";
   for (const [key, value] of Object.entries(params)) {
     if (value !== null && value !== undefined) {
-      queryString += `${encodeURIComponent(key)}=${encodeURIComponent(value)}&`
+      queryString += `${encodeURIComponent(key)}=${encodeURIComponent(value)}&`;
     }
   }
   const url = `${baseUrl}/${queryString}`;

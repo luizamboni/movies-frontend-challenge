@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react';
+import React from "react";
 
-import Navitation from './Navigation';
-import './GenericTable.css';
+import Navitation from "./Navigation";
+import "./GenericTable.css";
 
 type ColumnsType = {
   [key: string]: string;
@@ -46,7 +46,7 @@ function FilterComponent({ type, placeholder, options, value, onFilter}: Filter)
         {options?.map(option => <option value={option}>{option}</option>)}
       </select>
     }
-  </div>
+  </div>;
 }
 
 const GenericTable: React.FC<GenericTableProps> = ({ title, columns, data, pagination, filters = {}, centerHeaders = false, onNavigate }) => {
@@ -57,7 +57,7 @@ const GenericTable: React.FC<GenericTableProps> = ({ title, columns, data, pagin
         <thead>
           <tr>
             {Object.entries(columns).map(([key, displayName]) => (
-              <th key={key} style={{textAlign: centerHeaders ? "center" : 'left'}}>
+              <th key={key} style={{textAlign: centerHeaders ? "center" : "left"}}>
                 <p>{displayName}</p>
                 {filters[key] && <FilterComponent  key={key} {...filters[key]} />}
               </th>

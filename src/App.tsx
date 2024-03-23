@@ -1,8 +1,8 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, NavLink } from 'react-router-dom';
-import './App.css';
-import Dashboard from './pages/Dashboard/Dashboard';
-import List from './pages/List/List';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import "./App.css";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import List from "./pages/List/List";
 
 function App() {
   return (
@@ -10,8 +10,8 @@ function App() {
       <div className="App">
         <nav className="side-menu">
           <ul>
-            <li><NavLink className={({ isActive }) => (isActive ? 'active' : 'inactive')} to="/">Dashboard</NavLink></li>
-            <li><NavLink className={({ isActive }) => (isActive ? 'active' : 'inactive')} to="/list">List</NavLink></li>
+            <li><NavLink className={({ isActive }) => (isActive ? "active" : "inactive")} to="/">Dashboard</NavLink></li>
+            <li><NavLink className={({ isActive }) => (isActive ? "active" : "inactive")} to="/list">List</NavLink></li>
           </ul>
         </nav>
         <main>

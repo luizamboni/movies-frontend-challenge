@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import './List.css';
-import api, { MovieResponse, moviesParams as movieParamsInterface } from '../../external/moviesApi'; // Adjust the import path as needed
+import React, { useState, useEffect } from "react";
+import "./List.css";
+import api, { MovieResponse, moviesParams as movieParamsInterface } from "../../external/moviesApi"; // Adjust the import path as needed
 import Card from "../../components/Cards/Card";
 import GenericTable from "../../components/GenericTable/GenericTable";
 
 function List() {
   const [movies, setMovies] = useState<MovieResponse | null>(null);
   const [moviesParams, setMoviesParams] = useState<movieParamsInterface>({
-    year: '2019',
+    year: "2019",
     winner: null,
     page: 0,
     size: 15,
-  })
+  });
 
   useEffect(() => {
     async function fetchMovies() {
@@ -32,7 +32,7 @@ function List() {
       year: value ? value : null,
       page: 0,
     }));
-  }
+  };
 
   const handleWinnerFilter = (value: string) => {
     setMoviesParams(prevState => ({
@@ -40,14 +40,14 @@ function List() {
       winner: value ? value === "Yes" : null,
       page: 0,
     }));
-  }
+  };
 
   const handlePagination = (value: number) => {
     setMoviesParams(prevState => ({
       ...prevState,
       page: value - 1,
     }));
-  }
+  };
 
   return (
     <div className="list-container">

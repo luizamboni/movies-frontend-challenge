@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import './Dashboard.css';
-import api, { YearWithMultipleWinners, ProducerWinIntervals, StudiosWithWinCount, Movie, MovieResponse } from '../../external/moviesApi'; // Adjust the import path as needed
-import GenericTable from '../../components/GenericTable/GenericTable';
+import React, { useState, useEffect } from "react";
+import "./Dashboard.css";
+import api, { YearWithMultipleWinners, ProducerWinIntervals, StudiosWithWinCount, Movie } from "../../external/moviesApi"; // Adjust the import path as needed
+import GenericTable from "../../components/GenericTable/GenericTable";
 import Card from "../../components/Cards/Card";
 import WinnerByYearCard from "../../components/WinnerByYearCard/WinnerByYearCard";
 
@@ -10,7 +10,7 @@ function Dashboard() {
   const [producerWinIntervals, setProducerWinIntervals] = useState<ProducerWinIntervals | null>(null);
   const [studiosWithWinCount, setStudiosWithWinCount] = useState<StudiosWithWinCount | null>(null);
   const [winnersByYear, setWinnersByYear] = useState<Movie[] | null>(null);
-  const [year, setYear] = useState<number>(2016)
+  const [year, setYear] = useState<number>(2016);
 
   useEffect(() => {
     async function fetchYearWithMultipleWinners() {
@@ -56,7 +56,7 @@ function Dashboard() {
     }
 
     fetchWinnersByYear();
-  }, [year])
+  }, [year]);
 
   function handleYearChange(e: any) {
     setYear(e.target.value);
@@ -78,16 +78,16 @@ function Dashboard() {
         {producerWinIntervals && (
           <Card>
             <h2>Producers With Longest and Shortest Intervals between wins</h2>
-              <GenericTable 
-                title="Maximum" 
-                columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
-                data={producerWinIntervals.max} 
-              />
-              <GenericTable 
-                title="Mininum" 
-                columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
-                data={producerWinIntervals.min} 
-              />
+            <GenericTable 
+              title="Maximum" 
+              columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
+              data={producerWinIntervals.max} 
+            />
+            <GenericTable 
+              title="Mininum" 
+              columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
+              data={producerWinIntervals.min} 
+            />
           </Card>
         )}
       </div>
