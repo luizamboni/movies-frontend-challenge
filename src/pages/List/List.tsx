@@ -66,7 +66,6 @@ function List() {
               year: {
                 placeholder: "Filter by year",
                 type: "text",
-                minLenght: 4,
                 value: moviesParams.year ? String(moviesParams.year) : "",
                 onFilter: handleYearFilter,
               },
@@ -79,7 +78,7 @@ function List() {
               }
             }}
             data={movies.content.map(movie => ({...movie, winner: movie.winner ? "Yes" : "No" }))}
-            pagination={{current: movies.number, pages: movies.totalPages }}
+            pagination={{current: movies.number + 1, pages: movies.totalPages }}
             onNavigate={handlePagination}
           />
         </Card>

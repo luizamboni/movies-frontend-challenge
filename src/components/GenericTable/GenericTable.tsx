@@ -17,7 +17,6 @@ type Filter = {
   placeholder: string;
   value: string | number
   options?: string[];
-  minLenght?: number;
   onFilter: (...args: any[]) => any;
 }
 
