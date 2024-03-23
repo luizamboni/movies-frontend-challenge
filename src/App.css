@@ -2,8 +2,7 @@ h1,h2,h3 {
   font-weight: bold;
 }
 
-
-h1,h2,h3, p, *, li, ol {
+h1,h2,h3, p, *, li, ol , a {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -19,9 +18,17 @@ h2 {
   display: flex;
 }
 
+main {
+  width: 100%;
+}
+
+
 .side-menu {
   background-color: #f9f9f9;
   padding: 20px;
+  width: 200px;
+  height: 100vh;
+  /* position: sticky; */
 }
 
 .side-menu li {
@@ -32,11 +39,9 @@ h2 {
   padding: 6px;
 }
 
-a {
-  /* color:  */
+.side-menu li a {
+  color:#3333FF;
+  text-decoration: none;
 }
 
-main {
-  width: 100%;
-}
 
