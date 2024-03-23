@@ -32,39 +32,39 @@ export interface StudiosWithWinCount {
 }
 
 export interface Movie {
-    id: number;
-    year: number;
-    title: string;
-    studios: string[];
-    producers: string[];
-    winner: boolean;
+  id: number;
+  year: number;
+  title: string;
+  studios: string[];
+  producers: string[];
+  winner: boolean;
 }
 
 interface SortDetails {
-    sorted: boolean;
-    unsorted: boolean;
+  sorted: boolean;
+  unsorted: boolean;
 }
 
 interface Pageable {
-    sort: SortDetails;
-    pageSize: number;
-    pageNumber: number;
-    offset: number;
-    paged: boolean;
-    unpaged: boolean;
+  sort: SortDetails;
+  pageSize: number;
+  pageNumber: number;
+  offset: number;
+  paged: boolean;
+  unpaged: boolean;
 }
   
 export interface MovieResponse {
-    content: Movie[];
-    pageable: Pageable;
-    totalElements: number;
-    last: boolean;
-    totalPages: number;
-    first: boolean;
-    sort: SortDetails;
-    number: number;
-    numberOfElements: number;
-    size: number;
+  content: Movie[];
+  pageable: Pageable;
+  totalElements: number;
+  last: boolean;
+  totalPages: number;
+  first: boolean;
+  sort: SortDetails;
+  number: number;
+  numberOfElements: number;
+  size: number;
 }
   
 

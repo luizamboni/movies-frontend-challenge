@@ -7,7 +7,11 @@ import List from "./pages/List/List";
 function App() {
   return (
     <Router>
+      <div className="header">
+        <p>Frontend React Test</p>
+      </div>
       <div className="App">
+
         <nav className="side-menu">
           <ul>
             <li><NavLink className={({ isActive }) => (isActive ? "active" : "inactive")} to="/">Dashboard</NavLink></li>

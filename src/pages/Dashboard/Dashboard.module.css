@@ -1,0 +1,13 @@
+.dashboardContainer {
+  display: flex;
+}
+
+.column {
+  flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+  .dashboardContainer  {
+    display: block;
+  }
+}

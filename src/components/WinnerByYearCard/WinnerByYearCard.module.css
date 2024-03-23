@@ -1,0 +1,15 @@
+.inputGroup {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.searchField {
+  width: 100%;
+  margin-right: 10px;
+}
+
+.searchIcon {
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Dashboard.css";
+import style from "./Dashboard.module.css";
 import api, { YearWithMultipleWinners, ProducerWinIntervals, StudiosWithWinCount, Movie } from "../../external/moviesApi"; // Adjust the import path as needed
 import GenericTable from "../../components/GenericTable/GenericTable";
 import Card from "../../components/Cards/Card";
@@ -64,8 +64,8 @@ function Dashboard() {
   }
 
   return (
-    <div className="dashboard-container">
-      <div className="column" >
+    <div className={style.dashboardContainer}>
+      <div className={style.column} >
         {yearWithMultipleWinners && (
           <Card>
             <GenericTable 
@@ -78,20 +78,21 @@ function Dashboard() {
         {producerWinIntervals && (
           <Card>
             <h2>Producers With Longest and Shortest Intervals between wins</h2>
+
+            <h3>Maximum</h3>
             <GenericTable 
-              title="Maximum" 
               columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
               data={producerWinIntervals.max} 
             />
+            <h3>Minimum</h3>
             <GenericTable 
-              title="Mininum" 
               columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
               data={producerWinIntervals.min} 
             />
           </Card>
         )}
       </div>
-      <div className="column" >
+      <div className={style.column} >
         {studiosWithWinCount && (
           <Card>
             <GenericTable 

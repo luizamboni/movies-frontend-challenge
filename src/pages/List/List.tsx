@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./List.css";
 import api, { MovieResponse, moviesParams as movieParamsInterface } from "../../external/moviesApi"; // Adjust the import path as needed
 import Card from "../../components/Cards/Card";
 import GenericTable from "../../components/GenericTable/GenericTable";

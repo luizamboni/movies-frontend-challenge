@@ -1,0 +1,58 @@
+/* GenericTable.module.css */
+
+.genericTableContainer {
+  margin-bottom: 30px;
+}
+
+.genericTableContainerH2 {
+  font-size: 18px;
+  margin-top: 0;
+  color: #333;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.tableThead {
+  background-color: #f0f0f0;
+}
+
+.tableThTd {
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #dddddd;
+  font-size: 12px;
+}
+
+.tableTd {
+  border: 1px solid #dddddd;
+  padding: 10px;
+  font-size: 12px;
+  line-height: 140%;
+}
+
+.tableThColumnFilter {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.textFilter {
+  width: 100%;
+}
+
+.selectFilter {
+  width: 100%;
+}
+
+.tableThP {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.tableTrNthChildOdd {
+  background-color: #f9f9f9;
+}

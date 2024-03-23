@@ -1,7 +1,8 @@
 import React from "react";
 
 import Navitation from "./Navigation";
-import "./GenericTable.css";
+import style from "./GenericTable.module.css";
+import classNames from "classnames";
 
 type ColumnsType = {
   [key: string]: string;
@@ -17,7 +18,7 @@ type Filter = {
   placeholder: string;
   value: string | number
   options?: string[];
-  onFilter: (...args: any[]) => any;
+  onFilter: (...args: any[]) => void;
 }
 
 type Filters = {
@@ -31,17 +32,17 @@ type GenericTableProps = {
   data: any[];
   pagination?: Pagination;
   filters?: Filters;
-  onNavigate?: (page: number) => any;
+  onNavigate?: (page: number) => void;
 };
 
 function FilterComponent({ type, placeholder, options, value, onFilter}: Filter) {
 
-  return <div>
+  return <div className={style.tableThColumnFilter} >
     {type === "text" &&
-      <input type="text" value={value} onChange={(event) => onFilter(event.target.value)} placeholder={placeholder} />
+      <input className={style.textFilter} type="text" value={value} onChange={(event) => onFilter(event.target.value)} placeholder={placeholder} />
     }
     {type === "select" &&
-      <select defaultValue={placeholder} onChange={(event) => onFilter(event.target.value) }>
+      <select className={style.selectFilter} defaultValue={placeholder} onChange={(event) => onFilter(event.target.value) }>
         <option value="">{placeholder}</option>
         {options?.map(option => <option value={option}>{option}</option>)}
       </select>
@@ -51,24 +52,24 @@ function FilterComponent({ type, placeholder, options, value, onFilter}: Filter)
 
 const GenericTable: React.FC<GenericTableProps> = ({ title, columns, data, pagination, filters = {}, centerHeaders = false, onNavigate }) => {
   return (
-    <div className='generic-table-container'>
-      {title && <h2>{title}</h2>}
-      <table>
-        <thead>
+    <div className={style.genericTableContainer}>
+      {title && <h2 className={style.genericTableContainerH2}>{title}</h2>}
+      <table className={style.table}>
+        <thead className={style.tableThead}>
           <tr>
             {Object.entries(columns).map(([key, displayName]) => (
-              <th key={key} style={{textAlign: centerHeaders ? "center" : "left"}}>
-                <p>{displayName}</p>
-                {filters[key] && <FilterComponent  key={key} {...filters[key]} />}
+              <th className={style.tableThTd} key={key} style={{textAlign: centerHeaders ? "center" : "left"}}>
+                <p className={style.tableThP}>{displayName}</p>
+                {filters[key] && <FilterComponent key={key} {...filters[key]} />}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
           {data.map((item, index) => (
-            <tr key={index}>
+            <tr key={index} className={classNames({[style.tableTrNthChildOdd]: index % 2 !== 0})}>
               {Object.keys(columns).map((columnKey) => (
-                <td key={columnKey}>{item[columnKey]}</td>
+                <td key={columnKey} className={style.tableTd} >{item[columnKey]}</td>
               ))}
             </tr>
           ))}
