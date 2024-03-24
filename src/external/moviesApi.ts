@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-const baseUrl = "https://tools.texoit.com/backend-java/api/movies";
+export const baseUrl = "https://tools.texoit.com/backend-java/api/movies";
 
 interface YearWinner {
   year: number;
