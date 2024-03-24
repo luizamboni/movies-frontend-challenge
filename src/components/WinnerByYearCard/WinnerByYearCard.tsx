@@ -10,7 +10,7 @@ type onChange = (...args: any[]) => void;
 function WinnerByYearCard({ data, isLoading, value, onChange } : {data: any[] | null, isLoading?: boolean, value: number, onChange: onChange }) {
   return <Card title="List Movie winners by year">
     <div className={style.inputGroup}>
-      <input className={style.searchField} type='number' value={value} onChange={onChange} />
+      <input className={style.searchField} type='number' value={value} onChange={(e) => onChange(e.target.value)} />
       <span className={style.searchIcon} >
         <IoSearch/>
       </span>

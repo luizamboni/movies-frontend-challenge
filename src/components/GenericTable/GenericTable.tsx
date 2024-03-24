@@ -21,7 +21,7 @@ type Filter = {
   onFilter: (...args: any[]) => void;
 }
 
-type Filters = {
+export type Filters = {
   [key: string]: Filter;
 }
 
@@ -44,7 +44,7 @@ function FilterComponent({ type, placeholder, options, value, onFilter}: Filter)
     {type === "select" &&
       <select className={style.selectFilter} defaultValue={placeholder} onChange={(event) => onFilter(event.target.value) }>
         <option value="">{placeholder}</option>
-        {options?.map(option => <option value={option}>{option}</option>)}
+        {options?.map(option => <option key={option} value={option}>{option}</option>)}
       </select>
     }
   </div>;
