@@ -18,6 +18,7 @@ type Filter = {
   placeholder: string;
   value: string | number
   options?: string[];
+  field?: string;
   onFilter: (...args: any[]) => void;
 }
 
@@ -35,14 +36,14 @@ type GenericTableProps = {
   onNavigate?: (page: number) => void;
 };
 
-function FilterComponent({ type, placeholder, options, value, onFilter}: Filter) {
+function FilterComponent({ field, type, placeholder, options, value, onFilter}: Filter) {
 
   return <div className={style.tableThColumnFilter} >
     {type === "text" &&
-      <input className={style.textFilter} type="text" value={value} onChange={(event) => onFilter(event.target.value)} placeholder={placeholder} />
+      <input data-testid={field} className={style.textFilter} type="text" value={value} onChange={(event) => onFilter(event.target.value)} placeholder={placeholder} />
     }
     {type === "select" &&
-      <select className={style.selectFilter} defaultValue={placeholder} onChange={(event) => onFilter(event.target.value) }>
+      <select data-testid={field} className={style.selectFilter} defaultValue={placeholder} onChange={(event) => onFilter(event.target.value) }>
         <option value="">{placeholder}</option>
         {options?.map(option => <option key={option} value={option}>{option}</option>)}
       </select>
@@ -60,7 +61,7 @@ const GenericTable: React.FC<GenericTableProps> = ({ title, columns, data, pagin
             {Object.entries(columns).map(([key, displayName]) => (
               <th className={style.tableThTd} key={key} style={{textAlign: centerHeaders ? "center" : "left"}}>
                 <p className={style.tableThP}>{displayName}</p>
-                {filters[key] && <FilterComponent key={key} {...filters[key]} />}
+                {filters[key] && <FilterComponent field={key} {...filters[key]} />}
               </th>
             ))}
           </tr>

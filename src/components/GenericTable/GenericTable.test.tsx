@@ -47,13 +47,15 @@ describe("GenericTable", () => {
       },
     };
 
-    render(<GenericTable columns={columns} data={data} filters={filters} />);
-    const textInput = document.querySelector("input");
+    const { getByTestId } = render(<GenericTable columns={columns} data={data} filters={filters} />);
+    const textInput = getByTestId("name");
+
+    expect(textInput).toBeInTheDocument();
     fireEvent.change(textInput, {target: {value: "Jonh"}});
 
     expect(onNameFilterMock).toBeCalledWith("Jonh");
 
-    const selectInput = document.querySelector("select");
+    const selectInput = getByTestId("gender");
 
     fireEvent.change(selectInput, { target: { value: "M" } });
     expect(onGenderFilterMock).toBeCalledWith("M");
