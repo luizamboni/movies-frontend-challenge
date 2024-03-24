@@ -11,7 +11,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ title, isLoading = false, children }) => {
   return (
     <div className={style.card}>
-      <h2>{title}</h2>
+      {title && <h2>{title}</h2>}
       {children} {isLoading && <Loading/>}
     </div>
   );
