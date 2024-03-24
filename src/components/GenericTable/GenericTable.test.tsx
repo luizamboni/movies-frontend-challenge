@@ -52,7 +52,7 @@ describe("GenericTable", () => {
 
     expect(textInput).toBeInTheDocument();
     fireEvent.change(textInput, {target: {value: "Jonh"}});
-
+    
     expect(onNameFilterMock).toBeCalledWith("Jonh");
 
     const selectInput = getByTestId("gender");

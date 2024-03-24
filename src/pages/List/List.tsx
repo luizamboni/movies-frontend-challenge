@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api, { MovieResponse, moviesParams as movieParamsInterface } from "../../external/moviesApi"; // Adjust the import path as needed
+import movieApi, { MovieResponse, moviesParams as movieParamsInterface } from "../../external/moviesApi"; // Adjust the import path as needed
 import Card from "../../components/Cards/Card";
 import GenericTable from "../../components/GenericTable/GenericTable";
 
@@ -15,7 +15,7 @@ function List() {
   useEffect(() => {
     async function fetchMovies() {
       try {
-        const moviesResponse = await api.getMovies(moviesParams);
+        const moviesResponse = await movieApi.getMovies(moviesParams);
         setMovies(moviesResponse);
       } catch (error) {
         console.error("Failed to fetch movies:", error);

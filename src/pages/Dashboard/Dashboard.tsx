@@ -1,33 +1,10 @@
 import React, { useState, useEffect } from "react";
 import style from "./Dashboard.module.css";
-import api, { YearWithMultipleWinners, ProducerWinIntervals, StudiosWithWinCount, Movie } from "../../external/moviesApi"; // Adjust the import path as needed
+import movieApi, { YearWithMultipleWinners, ProducerWinIntervals, StudiosWithWinCount, Movie } from "../../external/moviesApi"; // Adjust the import path as needed
+import { retry } from "./utils";
 import GenericTable from "../../components/GenericTable/GenericTable";
 import Card from "../../components/Cards/Card";
 import WinnerByYearCard from "../../components/WinnerByYearCard/WinnerByYearCard";
-
-function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function retry(func: () => Promise<any>, limit: number): Promise<any> {
-  let attempts = 0;
-  while (attempts < limit) {
-    try {
-      return await func();
-    } catch (err) {
-      console.error(`Attempt ${attempts + 1} failed:`, err);
-      attempts++;
-      if (attempts < limit) {
-        const delay = attempts * 1000;
-        console.error(`Retrying in ${delay}ms...`);
-        await sleep(delay);
-      } else {
-        console.error("No more attempts left.");
-        throw err;
-      }
-    }
-  }
-}
 
 function Dashboard() {
   const [yearWithMultipleWinners, setYearWithMultipleWinners] = useState<YearWithMultipleWinners | null>(null);
@@ -38,17 +15,17 @@ function Dashboard() {
 
   useEffect(() => {
     async function fetchYearWithMultipleWinners() {
-      const result = await api.getYearWithMultipleWinners();
+      const result = await movieApi.getYearWithMultipleWinners();
       setYearWithMultipleWinners(result);
     }
 
     async function fetchProducerWinIntervals() {
-      const result = await api.getProducersWithLongestAndShortestIntervalBetweenWins();
+      const result = await movieApi.getProducersWithLongestAndShortestIntervalBetweenWins();
       setProducerWinIntervals(result);
     }
 
     async function fetchStudiosWithWinCount() {
-      const result = await api.getStudiosWithWinCount();
+      const result = await movieApi.getStudiosWithWinCount();
       setStudiosWithWinCount(result);
     }
 
@@ -60,7 +37,7 @@ function Dashboard() {
   useEffect(() => {
     async function fetchWinnersByYear() {
       try {
-        const result = await api.getWinnersByYear(year);
+        const result = await movieApi.getWinnersByYear(year);
         setWinnersByYear(result);
       } catch (error) {
         console.error(`Failed to fetch winners by year ${year}:`, error);

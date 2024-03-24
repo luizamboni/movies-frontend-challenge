@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import classNames from "classnames";
-
+import { range } from "./utils";
 import { IoCaretBackSharp } from "@react-icons/all-files/io5/IoCaretBackSharp";
 import { IoPlaySkipForwardSharp } from "@react-icons/all-files/io5/IoPlaySkipForwardSharp";
 import { IoCaretForwardSharp } from "@react-icons/all-files/io5/IoCaretForwardSharp";
@@ -16,40 +16,7 @@ function NumberedPageNav({ n, active, onClick } : { n: number, active?: boolean,
   return <span className={classNames(style.pageNavigation, {[style.pageNavigationActive]: active })} onClick={onClick}>{n}</span>;
 }
 
-type rangeLimits = {
-  limit: number;
-  minValue: number | null;
-  maxValue: number | null,
-}
-
-function range(start: number, end: number, limits: rangeLimits): number[] {
-  const range = [];
-  const { limit, minValue, maxValue } = limits;
-  for (let i = start; i < end; i++) {
-  
-    if (minValue && i < minValue) {
-      continue;
-    }
-  
-    if (maxValue && i > maxValue) {
-      continue;
-    }
-  
-    range.push(i);
-    if (range.length === limit) {
-      return range;
-    }
-  }
-  return range;
-}
-
-interface NavitationParams {
-  current: number;
-  pages: number;
-  onNavigate: (page: number) => any;
-}
-
-function Navigation({ current, pages, onNavigate }: NavitationParams) {
+function Navigation({ current, pages, onNavigate }: { current: number, pages: number, onNavigate: (page: number) => any }) {
     
   return <div className={style.pagination}>
     <LabeledPageNav enabled={current > 1} onClick={() => onNavigate(1)} label={<IoPlaySkipBackSharp />} />
