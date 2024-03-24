@@ -5,6 +5,30 @@ import GenericTable from "../../components/GenericTable/GenericTable";
 import Card from "../../components/Cards/Card";
 import WinnerByYearCard from "../../components/WinnerByYearCard/WinnerByYearCard";
 
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function retry(func: () => Promise<any>, limit: number): Promise<any> {
+  let attempts = 0;
+  while (attempts < limit) {
+    try {
+      return await func();
+    } catch (err) {
+      console.error(`Attempt ${attempts + 1} failed:`, err);
+      attempts++;
+      if (attempts < limit) {
+        const delay = attempts * 1000;
+        console.error(`Retrying in ${delay}ms...`);
+        await sleep(delay);
+      } else {
+        console.error("No more attempts left.");
+        throw err;
+      }
+    }
+  }
+}
+
 function Dashboard() {
   const [yearWithMultipleWinners, setYearWithMultipleWinners] = useState<YearWithMultipleWinners | null>(null);
   const [producerWinIntervals, setProducerWinIntervals] = useState<ProducerWinIntervals | null>(null);
@@ -14,35 +38,25 @@ function Dashboard() {
 
   useEffect(() => {
     async function fetchYearWithMultipleWinners() {
-      try {
-        const result = await api.getYearWithMultipleWinners();
-        setYearWithMultipleWinners(result);
-      } catch (error) {
-        console.error("Failed to fetch year with multiple winners:", error);
-      }
+      const result = await api.getYearWithMultipleWinners();
+      setYearWithMultipleWinners(result);
     }
 
     async function fetchProducerWinIntervals() {
-      try {
-        const result = await api.getProducersWithLongestAndShortestIntervalBetweenWins();
-        setProducerWinIntervals(result);
-      } catch (error) {
-        console.error("Failed to fetch producer win intervals:", error);
-      }
+      const result = await api.getProducersWithLongestAndShortestIntervalBetweenWins();
+      setProducerWinIntervals(result);
     }
 
     async function fetchStudiosWithWinCount() {
-      try {
-        const result = await api.getStudiosWithWinCount();
-        setStudiosWithWinCount(result);
-      } catch (error) {
-        console.error("Failed to fetch studios with win count:", error);
-      }
+      const result = await api.getStudiosWithWinCount();
+      setStudiosWithWinCount(result);
     }
 
-    fetchYearWithMultipleWinners();
-    fetchProducerWinIntervals();
-    fetchStudiosWithWinCount();
+    Promise.all([
+      retry(fetchYearWithMultipleWinners, 3).catch(console.error),
+      retry(fetchProducerWinIntervals, 3).catch(console.error),
+      retry(fetchStudiosWithWinCount, 3).catch(console.error),
+    ]);
   }, []);
 
   useEffect(() => {
@@ -58,9 +72,9 @@ function Dashboard() {
     fetchWinnersByYear();
   }, [year]);
 
-  function handleYearChange(e: any) {
+  function handleYearChange(value: number) {
     setWinnersByYear(null);
-    setYear(e.target.value);
+    setYear(value);
   }
 
   return (
