@@ -52,11 +52,9 @@ function Dashboard() {
       setStudiosWithWinCount(result);
     }
 
-    Promise.all([
-      retry(fetchYearWithMultipleWinners, 3).catch(console.error),
-      retry(fetchProducerWinIntervals, 3).catch(console.error),
-      retry(fetchStudiosWithWinCount, 3).catch(console.error),
-    ]);
+    retry(fetchYearWithMultipleWinners, 3).catch(console.error);
+    retry(fetchProducerWinIntervals, 3).catch(console.error);
+    retry(fetchStudiosWithWinCount, 3).catch(console.error);
   }, []);
 
   useEffect(() => {
