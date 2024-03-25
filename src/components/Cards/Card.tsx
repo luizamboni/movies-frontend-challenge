@@ -1,4 +1,4 @@
-import React from "react";
+import { FC as FunctionalComponent } from "react";
 import style from "./Card.module.css";
 import Loading from "../Loading/Loading";
 
@@ -8,7 +8,7 @@ interface CardProps {
   title?: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, isLoading = false, children }) => {
+const Card: FunctionalComponent<CardProps> = ({ title, isLoading = false, children }) => {
   return (
     <div className={style.card}>
       {title && <h2>{title}</h2>}

@@ -1,4 +1,4 @@
-type rangeLimits = {
+interface rangeLimits {
   limit: number;
   minValue: number | null;
   maxValue: number | null,

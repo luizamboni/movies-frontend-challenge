@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, FC as FunctionalComponent } from "react";
 import movieApi, { MovieResponse, moviesParams as movieParamsInterface } from "../../external/moviesApi"; // Adjust the import path as needed
 import Card from "../../components/Cards/Card";
 import GenericTable from "../../components/GenericTable/GenericTable";
+import style from "./List.module.css";
 
-function List() {
+const List: FunctionalComponent<any> = () => {
   const [movies, setMovies] = useState<MovieResponse | null>(null);
   const [moviesParams, setMoviesParams] = useState<movieParamsInterface>({
     year: "2019",
@@ -13,7 +14,7 @@ function List() {
   });
 
   useEffect(() => {
-    async function fetchMovies() {
+    async function fetchMovies(): Promise<void> {
       try {
         const moviesResponse = await movieApi.getMovies(moviesParams);
         setMovies(moviesResponse);
@@ -25,7 +26,7 @@ function List() {
   }, [moviesParams]);
 
 
-  const handleYearFilter = (value: string) => {
+  const handleYearFilter = (value: string): void => {
     setMoviesParams(prevState => ({
       ...prevState,
       year: value ? value : null,
@@ -33,7 +34,7 @@ function List() {
     }));
   };
 
-  const handleWinnerFilter = (value: string) => {
+  const handleWinnerFilter = (value: string): void => {
     setMoviesParams(prevState => ({
       ...prevState,
       winner: value ? value === "Yes" : null,
@@ -41,7 +42,7 @@ function List() {
     }));
   };
 
-  const handlePagination = (value: number) => {
+  const handlePagination = (value: number): void => {
     setMoviesParams(prevState => ({
       ...prevState,
       page: value - 1,
@@ -49,7 +50,7 @@ function List() {
   };
 
   return (
-    <div className="list-container">
+    <div className={style.listContainer}>
       <Card isLoading={!movies} title="List movies">
         {movies && <GenericTable
           centerHeaders={true}
@@ -82,6 +83,6 @@ function List() {
       </Card>
     </div>
   );
-}
+};
 
 export default List;

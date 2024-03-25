@@ -44,6 +44,23 @@
       "indent": [
         "error",
         2
+      ],
+      "@typescript-eslint/explicit-function-return-type": "error",
+      "@typescript-eslint/indent": ["error", 2],
+      "key-spacing": "off",
+      "@typescript-eslint/key-spacing": [
+        "error", 
+        { 
+          "afterColon": true,
+          "mode": "strict"
+        }
+      ],
+      "keyword-spacing": "off",
+      "@typescript-eslint/keyword-spacing": [
+        "error",
+        { 
+          "before": true 
+        }
       ]
     }
   },

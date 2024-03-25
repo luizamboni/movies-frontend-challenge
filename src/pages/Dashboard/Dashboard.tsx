@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, FC as FunctionalComponent } from "react";
 import style from "./Dashboard.module.css";
 import movieApi, { YearWithMultipleWinners, ProducerWinIntervals, StudiosWithWinCount, Movie } from "../../external/moviesApi"; // Adjust the import path as needed
 import { retry } from "./utils";
@@ -6,7 +6,7 @@ import GenericTable from "../../components/GenericTable/GenericTable";
 import Card from "../../components/Cards/Card";
 import WinnerByYearCard from "../../components/WinnerByYearCard/WinnerByYearCard";
 
-function Dashboard() {
+const Dashboard: FunctionalComponent<any> = () => {
   const [yearWithMultipleWinners, setYearWithMultipleWinners] = useState<YearWithMultipleWinners | null>(null);
   const [producerWinIntervals, setProducerWinIntervals] = useState<ProducerWinIntervals | null>(null);
   const [studiosWithWinCount, setStudiosWithWinCount] = useState<StudiosWithWinCount | null>(null);
@@ -14,17 +14,17 @@ function Dashboard() {
   const [year, setYear] = useState<number>(2016);
 
   useEffect(() => {
-    async function fetchYearWithMultipleWinners() {
+    async function fetchYearWithMultipleWinners(): Promise<void> {
       const result = await movieApi.getYearWithMultipleWinners();
       setYearWithMultipleWinners(result);
     }
 
-    async function fetchProducerWinIntervals() {
+    async function fetchProducerWinIntervals(): Promise<void> {
       const result = await movieApi.getProducersWithLongestAndShortestIntervalBetweenWins();
       setProducerWinIntervals(result);
     }
 
-    async function fetchStudiosWithWinCount() {
+    async function fetchStudiosWithWinCount(): Promise<void> {
       const result = await movieApi.getStudiosWithWinCount();
       setStudiosWithWinCount(result);
     }
@@ -35,7 +35,7 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    async function fetchWinnersByYear() {
+    async function fetchWinnersByYear(): Promise<void> {
       try {
         const result = await movieApi.getWinnersByYear(year);
         setWinnersByYear(result);
@@ -47,10 +47,10 @@ function Dashboard() {
     fetchWinnersByYear();
   }, [year]);
 
-  function handleYearChange(value: number) {
+  const handleYearChange = (value: number): void => {
     setWinnersByYear(null);
     setYear(value);
-  }
+  };
 
   return (
     <div className={style.dashboardContainer}>
@@ -61,24 +61,22 @@ function Dashboard() {
             data={yearWithMultipleWinners.years} 
           />}
         </Card>
-        {producerWinIntervals && (
-          <Card isLoading={!producerWinIntervals} title="Producers With Longest and Shortest Intervals between wins">
-            {producerWinIntervals &&
-              <>
-                <h3>Maximum</h3>
-                <GenericTable 
-                  columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
-                  data={producerWinIntervals.max} 
-                />
-                <h3>Minimum</h3>
-                <GenericTable 
-                  columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
-                  data={producerWinIntervals.min} 
-                />
-              </>
-            }
-          </Card>
-        )}
+        <Card isLoading={!producerWinIntervals} title="Producers With Longest and Shortest Intervals between wins">
+          {producerWinIntervals &&
+            <>
+              <h3>Maximum</h3>
+              <GenericTable 
+                columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
+                data={producerWinIntervals.max} 
+              />
+              <h3>Minimum</h3>
+              <GenericTable 
+                columns={{producer: "Producer", interval: "Interval", previousWin: "Previous Year", followingWin: "Following Year"}} 
+                data={producerWinIntervals.min} 
+              />
+            </>
+          }
+        </Card>
       </div>
       <div className={style.column} >
         <Card isLoading={!studiosWithWinCount} title="Top 3 studios with winners" >
@@ -91,6 +89,6 @@ function Dashboard() {
       </div>
     </div>
   );
-}
+};
 
 export default Dashboard;

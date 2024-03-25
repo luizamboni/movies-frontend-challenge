@@ -1,21 +1,21 @@
-import React from "react";
+import { ReactElement } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import WinnerByYearCard from "./WinnerByYearCard";
 
 jest.mock("../Cards/Card", () => {
-  return function DummyCard({ children } : { children: any[] }) {
+  return function DummyCard({ children } : { children: any[] }): ReactElement {
     return <div data-testid="card">{children}</div>;
   };
 });
 
 jest.mock("../GenericTable/GenericTable", () => {
-  return function DummyGenericTable() {
+  return function DummyGenericTable():ReactElement {
     return <div data-testid="genericTable">Table Content</div>;
   };
 });
 
 jest.mock("../Loading/Loading", () => {
-  return function DummyLoading() {
+  return function DummyLoading():ReactElement {
     return <div data-testid="loading">Loading...</div>;
   };
 });

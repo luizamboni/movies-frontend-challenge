@@ -1,14 +1,14 @@
-import React from "react";
+import { FC as FunctionalComponent} from "react";
 import style from "./Loading.module.css";
 
-function Spinner() {
+const Spinner: FunctionalComponent<any> = () => {
   return <div className={style.loader}></div>;
-}
+};
 
-function Loading() {
+const Loading: FunctionalComponent<any> = () => {
   return <div className={style.posCenter}>
     <Spinner />
   </div>;
-}
+};
 
 export default Loading;

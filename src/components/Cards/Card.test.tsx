@@ -1,9 +1,9 @@
-import React from "react";
+import {ReactElement} from "react";
 import { render, screen } from "@testing-library/react";
 import Card from "./Card";
 
 jest.mock("../Loading/Loading", () => {
-  return function DummyLoading() {
+  return function DummyLoading():ReactElement {
     return <div data-testid="loading">Loading...</div>;
   };
 });

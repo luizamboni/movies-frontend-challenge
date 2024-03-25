@@ -66,8 +66,6 @@ export interface MovieResponse {
   numberOfElements: number;
   size: number;
 }
-  
-
 
 async function getYearWithMultipleWinners(): Promise<YearWithMultipleWinners> {
   const url = `${baseUrl}/?projection=years-with-multiple-winners`;
@@ -141,7 +139,6 @@ export interface moviesParams {
 }
 
 async function getMovies(params: moviesParams): Promise<MovieResponse> {
-  // const url = `${baseUrl}/?page=0&size=99&winner=true&year=2018`;
   let queryString = "?";
   for (const [key, value] of Object.entries(params)) {
     if (value !== null && value !== undefined) {

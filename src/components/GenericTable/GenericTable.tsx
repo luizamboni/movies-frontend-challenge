@@ -1,57 +1,61 @@
-import React from "react";
+import { FC as FunctionalComponent } from "react";
+import classNames from "classnames";
 
 import Navitation from "./Navigation";
 import style from "./GenericTable.module.css";
-import classNames from "classnames";
 
 type ColumnsType = {
   [key: string]: string;
 };
 
-type Pagination = {
-  current: number;
-  pages: number;
+interface Pagination {
+  current: number,
+  pages: number,
 }
 
-type Filter = {
+type onFilter = (value: any) => void
+
+interface Filter {
   type: "text" | "select"
-  placeholder: string;
+  placeholder: string
   value: string | number
-  options?: string[];
-  field?: string;
-  onFilter: (...args: any[]) => void;
+  options?: string[]
+  field?: string
+  onFilter: onFilter
 }
 
-export type Filters = {
+export interface Filters {
   [key: string]: Filter;
 }
 
-type GenericTableProps = {
+const FilterComponent: FunctionalComponent<Filter> = ({ field, type, placeholder, options, value, onFilter}) => {
+
+  return <div className={style.tableThColumnFilter} >
+    {type === "text" &&
+      <input data-testid={field} className={style.textFilter} type="text" value={value} onChange={(event): void => onFilter(event.target.value)} placeholder={placeholder} />
+    }
+    {type === "select" &&
+      <select data-testid={field} className={style.selectFilter} defaultValue={placeholder} onChange={(event): void => onFilter(event.target.value) }>
+        <option value="">{placeholder}</option>
+        {options?.map(option => <option key={option} value={option}>{option}</option>)}
+      </select>
+    }
+  </div>;
+};
+
+type onNavigate = (page: number) => void;
+
+interface GenericTableProps {
   title?: string | null;
   centerHeaders?: boolean;
   columns: ColumnsType;
   data: any[] | null;
   pagination?: Pagination;
   filters?: Filters;
-  onNavigate?: (page: number) => void;
+  onNavigate?: onNavigate
 };
 
-function FilterComponent({ field, type, placeholder, options, value, onFilter}: Filter) {
-
-  return <div className={style.tableThColumnFilter} >
-    {type === "text" &&
-      <input data-testid={field} className={style.textFilter} type="text" value={value} onChange={(event) => onFilter(event.target.value)} placeholder={placeholder} />
-    }
-    {type === "select" &&
-      <select data-testid={field} className={style.selectFilter} defaultValue={placeholder} onChange={(event) => onFilter(event.target.value) }>
-        <option value="">{placeholder}</option>
-        {options?.map(option => <option key={option} value={option}>{option}</option>)}
-      </select>
-    }
-  </div>;
-}
-
-const GenericTable: React.FC<GenericTableProps> = ({ title, columns, data, pagination, filters = {}, centerHeaders = false, onNavigate }) => {
+const GenericTable: FunctionalComponent<GenericTableProps> = ({ title, columns, data, pagination, filters = {}, centerHeaders = false, onNavigate }) => {
   return (
     <div className={style.genericTableContainer}>
       {title && <h2 className={style.genericTableContainerH2}>{title}</h2>}

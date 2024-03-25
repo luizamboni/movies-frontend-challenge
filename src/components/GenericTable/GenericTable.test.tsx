@@ -1,6 +1,5 @@
 /* eslint-disable testing-library/no-node-access */
 /* eslint-disable testing-library/prefer-screen-queries */
-import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import GenericTable, { Filters } from "./GenericTable";
 import "@testing-library/jest-dom";
