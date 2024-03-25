@@ -1,6 +1,5 @@
 Movies Frontend Challenge
 ===
-
 Desafio Frontend - React
 
 # Visão Geral
@@ -48,8 +47,8 @@ Para executar:
 docker run -p 8080:80 dashboard 
 ```
 
+# Possiveis Melhorias.
 
-
-# A fazer:
 - usar useCallback
 - usar constantes ou enumeradores ao invés de comparar strings
+- fluxo de retentativa de carregamento caso haja falha, mostrando a mensagem de erro e possibilitando um retry acionado manualmente.
